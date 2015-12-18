@@ -8,7 +8,53 @@
 [![manpm](https://img.shields.io/badge/manpm-%E2%9C%93-3399ff.svg)](https://github.com/bahmutov/manpm)
 [![standard style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-### Small print
+## Install
+
+    npm install --save @bahmutov/csv
+
+## Use
+
+```js
+var csv = require('@bahmutov/csv')
+// csv is object with 2 methods
+```
+
+### Creating CSV from lists
+
+```js
+var titles = ['Name', 'Age']
+var values = [
+    'Joe', 21,
+    'Mary', 20
+] 
+csv.fromLists(titles, values);
+/*
+Name,Age
+Joe,21
+Mary,20
+*/
+```
+
+### Creating CSV from objects
+
+You can select a subset of properties from an object.
+
+```js
+var titles = ['Name', 'Age']
+var properties = ['name', 'age']
+var values = [
+    {name: 'Joe', age: 21, sex: 'male' },
+    {name: 'Mary', age: 20, sex: 'female' }
+] 
+csv.fromObjects(titles, properties, values);
+/*
+Name,Age
+Joe,21
+Mary,20
+*/
+```
+
+## Small print
 
 Author: Gleb Bahmutov &copy; 2015
 
