@@ -2,9 +2,12 @@
   "name": "@bahmutov/csv",
   "version": "1.0.0",
   "description": "Transforms list of objects into CSV text",
-  "main": "csv.js",
+  "main": "src/csv.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "rocha src/*-spec.js",
+    "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
+    "lint": "standard src/*.js",
+    "commit": "commit-wizard"
   },
   "repository": {
     "type": "git",
@@ -15,10 +18,28 @@
     "export",
     "list"
   ],
+  "files": [
+    "src/*.js",
+    "!src/*-spec.js"
+  ],
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bahmutov/csv/issues"
   },
-  "homepage": "https://github.com/bahmutov/csv#readme"
+  "homepage": "https://github.com/bahmutov/csv#readme",
+  "config": {
+    "pre-git": {
+      "commit-msg": ["simple"],
+      "pre-commit": [
+        "npm run lint",
+        "npm run test"
+      ],
+      "pre-push": [
+        "npm run size"
+      ],
+      "post-commit": [],
+      "post-merge": []
+    }
+  }
 }
