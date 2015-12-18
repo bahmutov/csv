@@ -4,7 +4,8 @@
   "main": "src/csv.js",
   "version": "0.0.0-semantic-release",
   "scripts": {
-    "test": "node --harmony node_modules/.bin/rocha src/*-spec.js",
+    "rocha": "node --harmony node_modules/.bin/rocha src/*-spec.js",
+    "test": "mocha --harmony src/*-spec.js",
     "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
     "lint": "standard src/*.js",
     "commit": "commit-wizard",
@@ -49,13 +50,12 @@
     }
   },
   "devDependencies": {
+    "mocha": "2.3.4",
     "pre-git": "3.1.1",
     "rocha": "1.6.1",
-    "semantic-release": "^4.3.5",
+    "semantic-release": "4.3.5",
     "standard": "5.4.1",
-    "webpack": "1.12.9"
-  },
-  "dependencies": {
+    "webpack": "1.12.9",
     "check-more-types": "2.9.0",
     "lazy-ass": "1.3.0",
     "ramda": "0.18.0"

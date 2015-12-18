@@ -1,5 +1,6 @@
-const is = require('check-more-types')
-const R = require('ramda')
+// my own tiny implementations of needed methods
+const is = require('./utils').is
+const R = require('./utils').R
 
 function fromLists (names, list) {
   var sep = ','

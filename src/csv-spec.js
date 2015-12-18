@@ -13,7 +13,7 @@ describe('csv utils', () => {
     it('returns CSV text', () => {
       const list = ['foo', 'bar', 'baz']
       const txt = csv.fromLists(['col 1', 'col 2', 'col 3'], [list])
-      la(is.unemptyString(txt))
+      la(is.unemptyString(txt), txt)
       la(/col\ 1/.test(txt))
       la(/col\ 2/.test(txt))
       la(/foo/.test(txt))
