@@ -46,6 +46,9 @@
     }
   },
   "devDependencies": {
-    "semantic-release": "^4.3.5"
+    "pre-git": "3.1.1",
+    "rocha": "1.6.1",
+    "semantic-release": "^4.3.5",
+    "standard": "5.4.1"
   }
 }

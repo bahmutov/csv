@@ -50,8 +50,8 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
-[csv-icon]: https://nodei.co/npm/csv.png?downloads=true
-[csv-url]: https://npmjs.org/package/csv
+[csv-icon]: https://nodei.co/npm/@bahmutov/csv.png?downloads=true
+[csv-url]: https://npmjs.org/package/@bahmutov/csv
 [csv-ci-image]: https://travis-ci.org/bahmutov/csv.png?branch=master
 [csv-ci-url]: https://travis-ci.org/bahmutov/csv
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
