@@ -4,7 +4,7 @@
   "main": "src/csv.js",
   "version": "0.0.0-semantic-release",
   "scripts": {
-    "test": "rocha src/*-spec.js",
+    "test": "node --harmony node_modules/.bin/rocha src/*-spec.js",
     "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
     "lint": "standard src/*.js",
     "commit": "commit-wizard",
