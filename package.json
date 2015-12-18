@@ -1,0 +1,24 @@
+{
+  "name": "@bahmutov/csv",
+  "version": "1.0.0",
+  "description": "Transforms list of objects into CSV text",
+  "main": "csv.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahmutov/csv.git"
+  },
+  "keywords": [
+    "csv",
+    "export",
+    "list"
+  ],
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bahmutov/csv/issues"
+  },
+  "homepage": "https://github.com/bahmutov/csv#readme"
+}
