@@ -35,6 +35,24 @@ Mary,20
 */
 ```
 
+You can pass maximum number of items as the last argument, returning a list of CSV texts
+
+```js
+var titles = ['Name', 'Age']
+var values = [
+    'Joe', 21,
+    'Mary', 20
+]
+var maxLines = 1
+csv.fromLists(titles, values, maxLines);
+/*
+['Name,Age
+Joe,21',
+'Name,Age
+Mary,20']
+*/
+```
+
 ### Creating CSV from objects
 
 You can select a subset of properties from an object.

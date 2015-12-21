@@ -1,8 +1,13 @@
 // my own tiny implementations of needed methods
 const is = require('./utils').is
 const R = require('./utils').R
+const split = require('./utils').split
 
-function fromLists (names, list) {
+function removeUndefined (val) {
+  return is.defined(val) ? val : ''
+}
+
+function fromLists (names, list, maxItemsPerCSV) {
   var sep = ','
   var sepRegex = new RegExp(sep, 'g')
 
@@ -10,18 +15,25 @@ function fromLists (names, list) {
   var removeSeparator = function (str) {
     return String(str).replace(sepRegex, '')
   }
-  var removeUndefined = function (val) {
-    return is.defined(val) ? val : ''
-  }
 
   var itemToTextLine = R.pipe(
     R.map(removeUndefined), // turn undefineds into empty strings
     R.map(removeSeparator), // make sure we do not have separator inside the values list
     R.join(sep) // join into single line
   )
+
   var lines = list.map(itemToTextLine)
-  lines.unshift(titleLine)
-  return lines.join('\n')
+
+  if (is.positive(maxItemsPerCSV)) {
+    var parts = split(lines, maxItemsPerCSV)
+    return parts.map(function (part) {
+      part.unshift(titleLine)
+      return part.join('\n')
+    })
+  } else {
+    lines.unshift(titleLine)
+    return lines.join('\n')
+  }
 }
 
 function fromObjects (names, properties, objects) {

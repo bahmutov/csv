@@ -10,6 +10,34 @@ describe('csv utils', () => {
       la(is.fn(csv.fromLists))
     })
 
+    describe('splits data', () => {
+      const items = [
+        ['joe', 21],
+        ['mary', 20]
+      ]
+      const titles = ['name', 'age']
+
+      it('can generate single csv', () => {
+        const txt = csv.fromLists(titles, items)
+        la(is.unemptyString(txt), txt)
+      })
+
+      it('can generate separate CSVs with 1 item', () => {
+        const csvs = csv.fromLists(titles, items, 1)
+        la(is.array(csvs), 'generated list of csvs', csvs)
+        la(csvs.length === 2, '2 csv files', csvs)
+
+        la(csvs[0].indexOf('name') !== -1, 'first CSV has title name')
+        la(csvs[1].indexOf('name') !== -1, 'second CSV has title name')
+
+        la(csvs[0].indexOf('joe') !== -1, 'first CSV has joe')
+        la(csvs[1].indexOf('joe') === -1, 'second CSV has NO joe')
+
+        la(csvs[0].indexOf('mary') === -1, 'first CSV has NO mary')
+        la(csvs[1].indexOf('mary') !== -1, 'second CSV has mary')
+      })
+    })
+
     it('removes commas', () => {
       const item = ['foo,bar']
       const titles = ['column 1']

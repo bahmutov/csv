@@ -24,3 +24,38 @@ describe('ramda utils', () => {
     la(result === 16, 'wrong result', result)
   })
 })
+
+describe('check utils', () => {
+  const check = require('./utils').is
+
+  it('checks positive numbers', () => {
+    la(check.positive(100), '100')
+    la(!check.positive(-1), '-1')
+    la(!check.positive(0), '0')
+  })
+})
+
+describe('split list', () => {
+  const split = require('./utils').split
+  const list = ['foo', 'bar', 'baz']
+
+  it('returns if undefined number', () => {
+    const result = split(list)
+    la(is.array(result), 'returns a list')
+    la(result.length === 1)
+    la(result[0] === list)
+  })
+
+  it('returns all', () => {
+    const result = split(list, 100)
+    la(is.array(result), 'returns a list')
+    la(result.length === 1)
+    la(result[0] === list)
+  })
+
+  it('returns individual', () => {
+    const result = split(list, 1)
+    la(is.array(result), 'returns a list')
+    la(result.length === 3)
+  })
+})

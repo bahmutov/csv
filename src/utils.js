@@ -11,6 +11,10 @@ function defend (fn) {
   return function () {
     const values = toArray.apply(null, arguments)
     values.map((x, k) => {
+      const checkIndex = 2 * k
+      if (checkIndex >= args.length) {
+        return
+      }
       if (!args[2 * k](x)) {
         throw new Error(args[2 * k + 1])
       }
@@ -76,13 +80,30 @@ function values (obj) {
   return pickAll(Object.keys(obj), obj)
 }
 
+function positive (x) {
+  return typeof x === 'number' && x > 0
+}
+
+function split (list, N) {
+  if (list.length <= N || typeof N === 'undefined') {
+    return [list]
+  }
+  var parts = []
+  var k
+  for (k = 0; k < list.length; k += N) {
+    parts.push(list.slice(k, k + N))
+  }
+  return parts
+}
+
 module.exports = {
   is: {
     defined: defined,
     defend: defend,
     arrayOfStrings: arrayOfStrings,
     arrayOfArrays: arrayOfArrays,
-    array: Array.isArray
+    array: Array.isArray,
+    positive: positive
   },
   R: {
     pipe: pipe,
@@ -90,5 +111,6 @@ module.exports = {
     join: curry2(join),
     pickAll: curry2(pickAll),
     values: values
-  }
+  },
+  split: split
 }
