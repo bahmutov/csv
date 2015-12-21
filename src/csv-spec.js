@@ -10,6 +10,16 @@ describe('csv utils', () => {
       la(is.fn(csv.fromLists))
     })
 
+    it('removes commas', () => {
+      const item = ['foo,bar']
+      const titles = ['column 1']
+      const txt = csv.fromLists(titles, [item])
+      la(is.unemptyString(txt), txt)
+      la(txt.indexOf('foo,bar') === -1, 'removed comma', txt)
+      la(txt.indexOf('foo') !== -1, 'has foo', txt)
+      la(txt.indexOf('bar') !== -1, 'has bar', txt)
+    })
+
     it('returns CSV text', () => {
       const item = ['foo', 'bar', 'baz']
       const titles = ['col 1', 'col 2', 'col 3']
