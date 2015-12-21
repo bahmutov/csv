@@ -11,8 +11,9 @@ describe('csv utils', () => {
     })
 
     it('returns CSV text', () => {
-      const list = ['foo', 'bar', 'baz']
-      const txt = csv.fromLists(['col 1', 'col 2', 'col 3'], [list])
+      const item = ['foo', 'bar', 'baz']
+      const titles = ['col 1', 'col 2', 'col 3']
+      const txt = csv.fromLists(titles, [item])
       la(is.unemptyString(txt), txt)
       la(/col\ 1/.test(txt))
       la(/col\ 2/.test(txt))
@@ -22,8 +23,9 @@ describe('csv utils', () => {
     })
 
     it('can handle numbers', () => {
-      const list = ['foo', 'bar', 42]
-      const txt = csv.fromLists(['col 1', 'col 2', 'col 3'], [list])
+      const item = ['foo', 'bar', 42]
+      const titles = ['col 1', 'col 2', 'col 3']
+      const txt = csv.fromLists(titles, [item])
       la(is.unemptyString(txt))
       la(/42/.test(txt))
     })
