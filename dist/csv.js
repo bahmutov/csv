@@ -57,8 +57,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	// my own tiny implementations of needed methods
 	const is = __webpack_require__(1).is
 	const R = __webpack_require__(1).R
+	const split = __webpack_require__(1).split
 
-	function fromLists (names, list) {
+	function removeUndefined (val) {
+	  return is.defined(val) ? val : ''
+	}
+
+	function fromLists (names, list, maxItemsPerCSV) {
 	  var sep = ','
 	  var sepRegex = new RegExp(sep, 'g')
 
@@ -66,18 +71,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var removeSeparator = function (str) {
 	    return String(str).replace(sepRegex, '')
 	  }
-	  var removeUndefined = function (val) {
-	    return is.defined(val) ? val : ''
-	  }
 
 	  var itemToTextLine = R.pipe(
 	    R.map(removeUndefined), // turn undefineds into empty strings
 	    R.map(removeSeparator), // make sure we do not have separator inside the values list
 	    R.join(sep) // join into single line
 	  )
+
 	  var lines = list.map(itemToTextLine)
-	  lines.unshift(titleLine)
-	  return lines.join('\n')
+
+	  if (is.positive(maxItemsPerCSV)) {
+	    var parts = split(lines, maxItemsPerCSV)
+	    return parts.map(function (part) {
+	      part.unshift(titleLine)
+	      return part.join('\n')
+	    })
+	  } else {
+	    lines.unshift(titleLine)
+	    return lines.join('\n')
+	  }
 	}
 
 	function fromObjects (names, properties, objects) {
@@ -118,6 +130,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return function () {
 	    const values = toArray.apply(null, arguments)
 	    values.map((x, k) => {
+	      const checkIndex = 2 * k
+	      if (checkIndex >= args.length) {
+	        return
+	      }
 	      if (!args[2 * k](x)) {
 	        throw new Error(args[2 * k + 1])
 	      }
@@ -183,13 +199,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return pickAll(Object.keys(obj), obj)
 	}
 
+	function positive (x) {
+	  return typeof x === 'number' && x > 0
+	}
+
+	function split (list, N) {
+	  if (list.length <= N || typeof N === 'undefined') {
+	    return [list]
+	  }
+	  var parts = []
+	  var k
+	  for (k = 0; k < list.length; k += N) {
+	    parts.push(list.slice(k, k + N))
+	  }
+	  return parts
+	}
+
 	module.exports = {
 	  is: {
 	    defined: defined,
 	    defend: defend,
 	    arrayOfStrings: arrayOfStrings,
 	    arrayOfArrays: arrayOfArrays,
-	    array: Array.isArray
+	    array: Array.isArray,
+	    positive: positive
 	  },
 	  R: {
 	    pipe: pipe,
@@ -197,7 +230,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    join: curry2(join),
 	    pickAll: curry2(pickAll),
 	    values: values
-	  }
+	  },
+	  split: split
 	}
 
 
