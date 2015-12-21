@@ -22,6 +22,12 @@ describe('csv utils', () => {
         la(is.unemptyString(txt), txt)
       })
 
+      it('can generate single CSV with both items', () => {
+        const csvs = csv.fromLists(titles, items, 2)
+        la(is.array(csvs), 'generated list of csvs', csvs)
+        la(csvs.length === 1, '1 csv file', csvs)
+      })
+
       it('can generate separate CSVs with 1 item', () => {
         const csvs = csv.fromLists(titles, items, 1)
         la(is.array(csvs), 'generated list of csvs', csvs)
@@ -72,6 +78,33 @@ describe('csv utils', () => {
   describe('from objects', () => {
     it('has to csv function', () => {
       la(is.fn(csv.fromObjects))
+    })
+
+    describe('split CSV output', () => {
+      const titles = ['Name', 'Age']
+      const properties = ['name', 'age']
+      const values = [
+        {name: 'Joe', age: 21, sex: 'male'},
+        {name: 'Mary', age: 20, sex: 'female'}
+      ]
+
+      it('generates single CSV', () => {
+        const result = csv.fromObjects(titles, properties, values)
+        la(is.unemptyString(result))
+      })
+
+      it('generates single CSV for large N', () => {
+        const result = csv.fromObjects(titles, properties, values, 10)
+        la(is.array(result))
+        la(result.length === 1, 'single csv')
+        la(is.unemptyString(result[0]))
+      })
+
+      it('generates multiple CSVs', () => {
+        const result = csv.fromObjects(titles, properties, values, 1)
+        la(is.array(result))
+        la(result.length === 2, 'each item is in CSV')
+      })
     })
 
     it('raises exception without objects', () => {

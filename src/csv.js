@@ -36,13 +36,13 @@ function fromLists (names, list, maxItemsPerCSV) {
   }
 }
 
-function fromObjects (names, properties, objects) {
+function fromObjects (names, properties, objects, maxItemsPerCSV) {
   var objectToValues = R.pipe(
     R.pickAll(properties), // pick some properties from each objeect
     R.values // take values from picked properties
   )
   var list = objects.map(objectToValues)
-  return fromLists(names, list)
+  return fromLists(names, list, maxItemsPerCSV)
 }
 
 module.exports = {

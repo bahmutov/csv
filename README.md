@@ -72,6 +72,19 @@ Mary,20
 */
 ```
 
+This method also accepts max number of items in a single CSV, returning a list of strings
+in this case
+
+```js
+csv.fromObjects(titles, properties, values, 1);
+/*
+[`Name,Age
+Joe,21`,
+`Name,Age
+Mary,20`]
+*/
+```
+
 ## Small print
 
 Author: Gleb Bahmutov &copy; 2015
